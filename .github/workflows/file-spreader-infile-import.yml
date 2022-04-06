@@ -1,0 +1,14 @@
+name: "File Spreader Importer - In-Repo File Config"
+
+on:
+  workflow_dispatch: ~
+
+jobs:
+  file-spreader:
+    runs-on: ubuntu-latest
+    steps:
+    - name: file-spreader
+      uses: DevOpsActions/arte-file-spreader/file-spreader@main
+      with:
+        inline-config: .github/import-spreader.rules.yml
+        github-token: ${{ secrets.PP_PAT_GH }}

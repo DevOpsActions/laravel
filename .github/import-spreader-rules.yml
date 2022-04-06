@@ -1,0 +1,19 @@
+import-files:
+- from-repository: DevOpsActions/CP-Slave-One          # source repository path
+  ref: develop                                         # commit-hash, branch or tag
+  sync:
+  - src: SlaveOne/markdown                             # source file
+    dest: .                                            # destination path
+  - src: SlaveOne/php                                  # source folder
+    dest: .                                            # destination
+    with-delete: false                                 # use the rsync --delete option or not
+- from-repository: DevOpsActions/CP-Slave-Two
+  ref: master
+  sync:
+  - src: SlaveTwo/markdown
+    dest: .
+  - src: SlaveTwo/php
+    dest: .
+pull-request:                                         # optionnal configuration
+  branch-name: "incoming-files"
+  title: "Pull Request Title"
