@@ -1,0 +1,37 @@
+name: "File Spreader"
+
+on:
+  workflow_dispatch: ~
+#    inputs:
+
+jobs:
+  file-spreader:
+    runs-on: ubuntu-latest
+    steps:
+#    - name: checkout
+#      uses: actions/checkout@v2
+    - name: file-spreader
+      uses: DevOpsActions/arte-file-spreader/file-spreader@main
+      with:
+        inline-config: |
+          export-files:
+          - to-repository: DevOpsActions/CP-Slave-One
+            base: develop
+            sync:
+            - src: tests
+              dest: .
+            - src: app
+              dest: .
+          - to-repository: DevOpsActions/CP-Slave-Two
+            base: develop
+            sync:
+            - src: README.md
+              dest: .
+            - src: composer.json
+              dest: .
+            - src: not-found
+              dest: .
+          pull-request:
+            branch-name: "incoming-spreaded-files"
+            title: "Laravel Sync File-Spreader"
+        github-token: ${{ secrets.PP_PAT_GH }}
